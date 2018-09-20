@@ -1,0 +1,26 @@
+{
+  "name": "kali-visuals",
+  "version": "1.0.0",
+  "description": "Sentiment Analysis Repository",
+  "main": "index.js",
+  "scripts": {
+    "dev":"nodemon server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/anthonyanader/kaliVisuals.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/anthonyanader/kaliVisuals/issues"
+  },
+  "homepage": "https://github.com/anthonyanader/kaliVisuals#readme",
+  "devDependencies": {
+    "nodemon": "^1.18.4"
+  },
+  "dependencies": {
+    "body-parser": "^1.18.3",
+    "express": "^4.16.3"
+  }
+}
