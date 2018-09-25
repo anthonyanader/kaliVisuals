@@ -1,5 +1,5 @@
 class Tweet {
-    constructor({ id, content, date, sentiment }){
+    constructor({ id, content, date, sentiment } = {}){
         this.id = id;
         this.content = content;
         this.date = date;
