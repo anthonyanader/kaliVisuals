@@ -11,5 +11,10 @@
   "license": "ISC",
   "devDependencies": {
     "nodemon": "^1.18.4"
+  },
+  "dependencies": {
+    "body-parser": "^1.18.3",
+    "express": "^4.16.3",
+    "twit": "^2.2.11"
   }
 }
