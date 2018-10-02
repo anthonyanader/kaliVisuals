@@ -1,0 +1,28 @@
+[debug] [2018-10-02T02:08:44.684Z] ----------------------------------------------------------------------
+[debug] [2018-10-02T02:08:44.687Z] Command:       /usr/local/bin/node /usr/local/bin/firebase serve
+[debug] [2018-10-02T02:08:44.687Z] CLI Version:   4.2.1
+[debug] [2018-10-02T02:08:44.687Z] Platform:      darwin
+[debug] [2018-10-02T02:08:44.688Z] Node Version:  v6.11.5
+[debug] [2018-10-02T02:08:44.688Z] Time:          Mon Oct 01 2018 22:08:44 GMT-0400 (EDT)
+[debug] [2018-10-02T02:08:44.688Z] ----------------------------------------------------------------------
+[debug] 
+[debug] [2018-10-02T02:08:44.703Z] > command requires scopes: ["email","openid","https://www.googleapis.com/auth/cloudplatformprojects.readonly","https://www.googleapis.com/auth/firebase","https://www.googleapis.com/auth/cloud-platform"]
+[debug] [2018-10-02T02:08:44.703Z] > authorizing via signed-in user
+[debug] [2018-10-02T02:08:44.705Z] >>> HTTP REQUEST GET https://admin.firebase.com/v1/projects/kali-visuals  
+ 
+[debug] [2018-10-02T02:08:45.006Z] <<< HTTP RESPONSE 200
+[debug] [2018-10-02T02:08:45.007Z] >>> HTTP REQUEST GET https://cloudresourcemanager.googleapis.com/v1/projects/kali-visuals  
+ 
+[debug] [2018-10-02T02:08:45.347Z] <<< HTTP RESPONSE 200
+[info] 
+[info] === Serving from '/Users/Anthony/Documents/workspace/kaliVisuals'...
+[info] 
+[info] i  functions: Preparing to emulate functions.
+[debug] [2018-10-02T02:08:45.879Z] Fetching environment
+[debug] [2018-10-02T02:08:45.881Z] >>> HTTP REQUEST GET https://mobilesdk-pa.googleapis.com/v1/projects/29486680435:getServerAppConfig  
+ 
+[debug] [2018-10-02T02:08:46.104Z] <<< HTTP RESPONSE 200
+[debug] [2018-10-02T02:08:46.105Z] Starting @google-cloud/functions-emulator
+[debug] [2018-10-02T02:08:47.649Z] Parsing function triggers
+[info] ✔  functions: addMessage: http://localhost:5000/kali-visuals/us-central1/addMessage
+[info] ✔  functions: getTweet: http://localhost:5000/kali-visuals/us-central1/getTweet
