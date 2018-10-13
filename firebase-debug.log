@@ -1,0 +1,64 @@
+[debug] [2018-10-13T01:57:13.969Z] ----------------------------------------------------------------------
+[debug] [2018-10-13T01:57:13.971Z] Command:       /usr/local/bin/node /usr/local/bin/firebase serve
+[debug] [2018-10-13T01:57:13.972Z] CLI Version:   5.0.1
+[debug] [2018-10-13T01:57:13.972Z] Platform:      darwin
+[debug] [2018-10-13T01:57:13.972Z] Node Version:  v6.11.5
+[debug] [2018-10-13T01:57:13.972Z] Time:          Fri Oct 12 2018 21:57:13 GMT-0400 (EDT)
+[debug] [2018-10-13T01:57:13.972Z] ----------------------------------------------------------------------
+[debug] 
+[debug] [2018-10-13T01:57:13.993Z] > command requires scopes: ["email","openid","https://www.googleapis.com/auth/cloudplatformprojects.readonly","https://www.googleapis.com/auth/firebase","https://www.googleapis.com/auth/cloud-platform"]
+[debug] [2018-10-13T01:57:13.993Z] > authorizing via signed-in user
+[debug] [2018-10-13T01:57:13.994Z] [iam] checking project kali-visuals for permissions ["firebase.projects.get"]
+[debug] [2018-10-13T01:57:13.996Z] > refreshing access token with scopes: ["email","https://www.googleapis.com/auth/cloud-platform","https://www.googleapis.com/auth/cloudplatformprojects.readonly","https://www.googleapis.com/auth/firebase","openid"]
+[debug] [2018-10-13T01:57:13.997Z] >>> HTTP REQUEST POST https://www.googleapis.com/oauth2/v3/token  
+ <request body omitted>
+[debug] [2018-10-13T01:57:14.294Z] <<< HTTP RESPONSE 200
+[debug] [2018-10-13T01:57:14.302Z] >>> HTTP REQUEST POST https://cloudresourcemanager.googleapis.com/v1/projects/kali-visuals:testIamPermissions  
+
+[debug] [2018-10-13T01:57:14.725Z] <<< HTTP RESPONSE 200
+[debug] [2018-10-13T01:57:14.727Z] >>> HTTP REQUEST GET https://cloudresourcemanager.googleapis.com/v1/projects/kali-visuals  
+ 
+[debug] [2018-10-13T01:57:15.181Z] <<< HTTP RESPONSE 200
+[info] 
+[info] === Serving from '/Users/Anthony/Documents/workspace/kaliVisuals'...
+[info] 
+[info] i  functions: Preparing to emulate functions.
+[debug] [2018-10-13T01:57:16.018Z] Fetching environment
+[debug] [2018-10-13T01:57:16.021Z] >>> HTTP REQUEST GET https://mobilesdk-pa.googleapis.com/v1/projects/29486680435:getServerAppConfig  
+ 
+[debug] [2018-10-13T01:57:16.400Z] <<< HTTP RESPONSE 200
+[debug] [2018-10-13T01:57:16.401Z] Starting @google-cloud/functions-emulator
+[debug] [2018-10-13T01:57:17.945Z] Parsing function triggers
+[info] ✔  functions: getDBSnapshot: http://localhost:5000/kali-visuals/us-central1/getDBSnapshot
+[info] ✔  functions: scheduledSentimentBatch: http://localhost:5000/kali-visuals/us-central1/scheduledSentimentBatch
+[info] ✔  functions: tagToMonitor: http://localhost:5000/kali-visuals/us-central1/tagToMonitor
+[debug] [2018-10-13T01:59:22.285Z] ----------------------------------------------------------------------
+[debug] [2018-10-13T01:59:22.288Z] Command:       /usr/local/bin/node /usr/local/bin/firebase serve
+[debug] [2018-10-13T01:59:22.288Z] CLI Version:   5.0.1
+[debug] [2018-10-13T01:59:22.289Z] Platform:      darwin
+[debug] [2018-10-13T01:59:22.289Z] Node Version:  v6.11.5
+[debug] [2018-10-13T01:59:22.289Z] Time:          Fri Oct 12 2018 21:59:22 GMT-0400 (EDT)
+[debug] [2018-10-13T01:59:22.289Z] ----------------------------------------------------------------------
+[debug] 
+[debug] [2018-10-13T01:59:22.303Z] > command requires scopes: ["email","openid","https://www.googleapis.com/auth/cloudplatformprojects.readonly","https://www.googleapis.com/auth/firebase","https://www.googleapis.com/auth/cloud-platform"]
+[debug] [2018-10-13T01:59:22.304Z] > authorizing via signed-in user
+[debug] [2018-10-13T01:59:22.304Z] [iam] checking project kali-visuals for permissions ["firebase.projects.get"]
+[debug] [2018-10-13T01:59:22.306Z] >>> HTTP REQUEST POST https://cloudresourcemanager.googleapis.com/v1/projects/kali-visuals:testIamPermissions  
+
+[debug] [2018-10-13T01:59:22.762Z] <<< HTTP RESPONSE 200
+[debug] [2018-10-13T01:59:22.764Z] >>> HTTP REQUEST GET https://cloudresourcemanager.googleapis.com/v1/projects/kali-visuals  
+ 
+[debug] [2018-10-13T01:59:23.200Z] <<< HTTP RESPONSE 200
+[info] 
+[info] === Serving from '/Users/Anthony/Documents/workspace/kaliVisuals'...
+[info] 
+[info] i  functions: Preparing to emulate functions.
+[debug] [2018-10-13T01:59:23.779Z] Fetching environment
+[debug] [2018-10-13T01:59:23.781Z] >>> HTTP REQUEST GET https://mobilesdk-pa.googleapis.com/v1/projects/29486680435:getServerAppConfig  
+ 
+[debug] [2018-10-13T01:59:24.074Z] <<< HTTP RESPONSE 200
+[debug] [2018-10-13T01:59:24.075Z] Starting @google-cloud/functions-emulator
+[debug] [2018-10-13T01:59:25.613Z] Parsing function triggers
+[info] ✔  functions: tagToMonitor: http://localhost:5000/kali-visuals/us-central1/tagToMonitor
+[info] ✔  functions: scheduledSentimentBatch: http://localhost:5000/kali-visuals/us-central1/scheduledSentimentBatch
+[info] ✔  functions: getDBSnapshot: http://localhost:5000/kali-visuals/us-central1/getDBSnapshot
