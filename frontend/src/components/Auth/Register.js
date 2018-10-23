@@ -1,5 +1,6 @@
 import React from 'react';
 import firebase from '../../firebase';
+import md5 from 'md5';
 import { Link } from 'react-router-dom';
 import { Grid, Form, Segment, Button, Header, Message, Icon }from 'semantic-ui-react';
 
@@ -8,7 +9,10 @@ class Register extends React.Component{
         username: '',
         email: '',
         password: '',
-        passwordConfirmation: ''
+        passwordConfirmation: '',
+        errors: [],
+        loading: false,
+        usersRef: firebase.database().ref('users')
     }
 
     handleChange = event => {
@@ -18,14 +22,79 @@ class Register extends React.Component{
     }
 
     handleSubmit = event => {
-        event.preventDefault();
+        event.preventDefault()
+
+        if (this.isFormValid()) {
+            this.setState({ errors: [], loading: true })
+            firebase.auth().createUserWithEmailAndPassword(this.state.email, this.state.password)
+                .then(createdUser => {
+                    console.log(createdUser)
+                    createdUser.user.updateProfile({
+                        displayName: this.state.username,
+                        photoURL: `http://gravatar.com/avatar/${md5(createdUser.user.email)}?d=identicon`
+                    })
+                    .then(() =>{
+                        this.saveUser(createdUser).then(() => {
+                            this.setState({ loading: false})
+                            console.log('user saved')
+                        })
+                    })
+                    .catch(err => {
+                        console.error(err)
+                        this.setState({ errors: this.state.errors.concat(err), loading: false })
+                    })
+                })
+                .catch(err => {
+                    console.error(err)
+                    this.setState({ errors: this.state.errors.concat(err), loading: false })
+                })
+        }
+    }
+
+    handleInputError = (errors, inputName) => {
+        return errors.some(error =>
+            error.message.toLowerCase().includes(inputName)
+        ) ? 'error' : ''
+    }
+
+    isFormValid = () => {
+        let errors = []
+        let error
         
-        firebase.auth().createUserWithEmailAndPassword(this.state.email, this.state.password)
-        .then(createdUser => {
-            console.log(createdUser)
-        })
-        .catch(err => {
-            console.error(err)
+        if (this.isFormEmpty(this.state)) {
+            error = { message: 'Please fill in all fields' }
+            this.setState({ errors: errors.concat(error) })
+            return false
+
+        } else if (!this.isPasswordValid(this.state)) {
+            error = { message: 'Password must be at least 6 characters and match' }
+            this.setState({ errors: errors.concat(error) })
+            return false
+
+        } else {
+            return true
+        }
+    }
+
+    isFormEmpty = ({ username, email, password, passwordConfirmation }) => {
+        return !username.length || !email.length || !password.length || !passwordConfirmation.length
+    }
+
+    isPasswordValid = ({ password, passwordConfirmation }) => {
+        if (password.length < 6 || passwordConfirmation.length < 6) {
+            return false
+        } else if (password !== passwordConfirmation) {
+            return false
+        }
+        return true
+    }
+
+    displayErrors = errors => errors.map((error, i) => <p key={i}>{error.message}</p>)
+
+    saveUser = createdUser => {
+        return this.state.usersRef.child(createdUser.user.uid).set({
+            name: createdUser.user.displayName,
+            avatar: createdUser.user.photoURL
         })
     }
 
@@ -34,14 +103,16 @@ class Register extends React.Component{
             username,
             email,
             password,
-            passwordConfirmation 
+            passwordConfirmation,
+            errors,
+            loading 
         } = this.state;
 
         return(
             <Grid textAlign="center" verticalAlign="middle" className="app">
                 <Grid.Column style={{ maxWidth: 450 }}>
-                    <Header as="h2" icon color="blue" textAlign="center">
-                        <Icon name="chart pie" color="blue" />
+                    <Header as="h1" icon color="violet" textAlign="center">
+                        <Icon name="chart pie" color="violet" />
                         Register for Kali-Visuals
                     </Header>
                     <Form onSubmit={this.handleSubmit} size="large">
@@ -53,6 +124,7 @@ class Register extends React.Component{
                             placeholder="Username" 
                             onChange={this.handleChange} 
                             type="text"
+                            className={this.handleInputError(errors, 'username')}
                             value={username} />
 
                             <Form.Input 
@@ -62,6 +134,7 @@ class Register extends React.Component{
                             placeholder="Email" 
                             onChange={this.handleChange} 
                             type="email"
+                            className={this.handleInputError(errors, 'email')}
                             value={email} />
 
                             <Form.Input 
@@ -71,6 +144,7 @@ class Register extends React.Component{
                             placeholder="Password" 
                             onChange={this.handleChange} 
                             type="password"
+                            className={this.handleInputError(errors, 'password')}
                             value={password} />
 
                             <Form.Input
@@ -80,13 +154,19 @@ class Register extends React.Component{
                             placeholder="Password Confirmation" 
                             onChange={this.handleChange} 
                             type="password"
+                            className={this.handleInputError(errors, 'password')}
                             value={passwordConfirmation} />
 
-                            <Button 
-                            color="blue" 
+                            <Button disabled={loading} className={loading ? 'loading' : ''} color="violet" 
                             fluid size="large">Submit</Button>
                         </Segment>
                     </Form>
+                    {errors.length > 0 && (
+                        <Message error>
+                            <h3>Error</h3>
+                            {this.displayErrors(errors)}
+                        </Message>
+                    )}
                     <Message>Already a user? <Link to="/login">Login</Link></Message>
                 </Grid.Column>
             </Grid>
