@@ -55,7 +55,7 @@ class Login extends React.Component{
                 <Grid.Column style={{ maxWidth: 450 }}>
                     <Header as="h1" icon color="violet" textAlign="center">
                         <Icon name="pie chart" color="violet" />
-                        Login to DevChat
+                        Login to Kali Visuals
                     </Header>
                     <Form onSubmit={this.handleSubmit} size="large">
                         <Segment raised>
