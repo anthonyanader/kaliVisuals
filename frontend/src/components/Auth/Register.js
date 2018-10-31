@@ -35,7 +35,6 @@ class Register extends React.Component{
                     })
                     .then(() =>{
                         this.saveUser(createdUser).then(() => {
-                            this.setState({ loading: false})
                             console.log('user saved')
                         })
                     })

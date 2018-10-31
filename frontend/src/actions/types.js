@@ -1,1 +1,2 @@
-export const SET_USER = 'SET_USER';
+export const SET_CURRENT_USER = 'SET_USER';
+export const CLEAR_CURRENT_USER = 'CLEAR_USER';
