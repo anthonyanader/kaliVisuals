@@ -1,7 +1,8 @@
 import React from 'react';
 import { Menu } from 'semantic-ui-react';
 
-import UserPanel from './UserPanel'
+import UserPanel from './UserPanel';
+import MonitoredTags from './MonitoredTags';
 
 class SidePanel extends React.Component {
     render() {
@@ -16,6 +17,7 @@ class SidePanel extends React.Component {
                 style={{ fontSize: "1.2rem" }}
             >
                 <UserPanel currentUser={ currentUser } />
+                <MonitoredTags currentUser={ currentUser } />
             </Menu>
         )
     }
