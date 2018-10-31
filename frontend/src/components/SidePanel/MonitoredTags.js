@@ -1,7 +1,9 @@
 import React from 'react';
 
 import firebase from '../../firebase';
+import { setSelectedTag } from '../../actions'
 
+import { connect } from 'react-redux';
 import { Menu, Icon, Form, Button, Input, Modal } from 'semantic-ui-react';
 
 class MonitoredTags extends React.Component {
@@ -10,12 +12,18 @@ class MonitoredTags extends React.Component {
         monitoredTags: [],
         tagName: '',
         tagDuration: '',
+        tagLoaded: true,
         monitoredTagsRef: firebase.database().ref('monitoredTags'),
-        modal: false
+        modal: false,
+        activeTag: ''
     }
 
     componentDidMount(){
         this.addListeners();
+    }
+
+    componentWillUnmount() {
+        this.removeListeners()
     }
 
     closeModal = () => this.setState({ modal: false })
@@ -66,21 +74,45 @@ class MonitoredTags extends React.Component {
         let loadedTags = []
         this.state.monitoredTagsRef.on('child_added', snapshot => {
             loadedTags.push(snapshot.val())
-            this.setState({ monitoredTags: loadedTags })
+            this.setState({ monitoredTags: loadedTags }, () => this.setInitialTag())
         })
+    }
+
+    removeListeners = () => {
+        this.state.monitoredTagsRef.off()
     }
 
     displayTags = monitoredTags => (
         monitoredTags.length > 0 && monitoredTags.map(tag => (
             <Menu.Item
                 key={tag.tagId}
-                onClick={() => console.log(tag)}
+                onClick={() => this.selectTag(tag)}
                 name={tag.tagName}
                 style={{opacity: '0.7'}}
+                active={tag.tagId === this.state.activeTag}
             >#{tag.tagName}
             </Menu.Item>
         ))
     )
+
+    selectTag = tag => {
+        this.setActiveTag(tag)
+        this.props.setSelectedTag(tag)
+    }
+
+    setActiveTag = tag => {
+        this.setState({ activeTag: tag.tagId })
+    }
+
+    setInitialTag = () => {
+        const firstMonitoredTag = this.state.monitoredTags[0]
+
+        if (this.state.tagLoaded && this.state.monitoredTags.length > 0) {
+            this.props.setSelectedTag(firstMonitoredTag)
+            this.setActiveTag(firstMonitoredTag)
+        }
+        this.setState({ tagLoaded: false })
+    }
 
     render() {
 
@@ -136,4 +168,4 @@ class MonitoredTags extends React.Component {
     }
 }
 
-export default MonitoredTags;
+export default connect(null, { setSelectedTag })(MonitoredTags);
