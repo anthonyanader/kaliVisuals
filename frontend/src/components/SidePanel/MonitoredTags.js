@@ -54,6 +54,7 @@ class MonitoredTags extends React.Component {
             tagName: tagName,
             tagDuration: tagDuration,
             createdBy: {
+                user: user.uid,
                 name: user.displayName,
                 avatar: user.photoURL
             }

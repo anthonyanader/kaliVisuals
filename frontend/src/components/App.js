@@ -13,10 +13,9 @@ const App = ({ currentUser }) => (
     <Grid columns="equal" className="app" style={{ background: "#eee" }}>
         <SidePanel currentUser={ currentUser } />
 
-        <Grid.Column style={{ marginLeft: 320 }}>
+        <Grid.Column style={{ marginLeft: 260 }}>
             <Dashboard />
         </Grid.Column>
-        <Grid.Column width={4}></Grid.Column>
     </Grid>
 )
 

@@ -1,9 +1,13 @@
 import React from 'react';
 
+import DashboardHeader from './DashboardHeader';
+
 class Dashboard extends React.Component {
     render() {
         return (
-            <div>Dashboard</div>
+            <React.Fragment>
+                <DashboardHeader />
+            </React.Fragment>
         )
     }
 
