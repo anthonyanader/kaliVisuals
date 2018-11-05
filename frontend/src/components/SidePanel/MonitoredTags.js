@@ -6,6 +6,7 @@ import { setSelectedTag } from '../../actions'
 import { connect } from 'react-redux';
 import { Menu, Icon, Form, Button, Input, Modal } from 'semantic-ui-react';
 
+
 class MonitoredTags extends React.Component {
     state = {
         user: this.props.currentUser,
@@ -52,6 +53,7 @@ class MonitoredTags extends React.Component {
         const newTag = {
             tagId: key,
             tagName: tagName,
+            timestamp: firebase.database.ServerValue.TIMESTAMP,
             tagDuration: tagDuration,
             createdBy: {
                 user: user.uid,
@@ -75,12 +77,26 @@ class MonitoredTags extends React.Component {
         let loadedTags = []
         this.state.monitoredTagsRef.on('child_added', snapshot => {
             loadedTags.push(snapshot.val())
-            this.setState({ monitoredTags: loadedTags }, () => this.setInitialTag())
+            this.setUserMonitoredTags(loadedTags)
         })
+        
     }
 
     removeListeners = () => {
         this.state.monitoredTagsRef.off()
+    }
+
+    setUserMonitoredTags = loadedTags => {
+        const { user } = this.state
+        
+        let userMonitoredTags = []
+        
+        loadedTags
+        .filter(tag => tag.createdBy.user === user.uid)
+        .map(tag => userMonitoredTags.push(tag))
+        
+        this.setState({ monitoredTags: userMonitoredTags, tagLoaded: true }, () => this.setInitialTag())
+        
     }
 
     displayTags = monitoredTags => (
