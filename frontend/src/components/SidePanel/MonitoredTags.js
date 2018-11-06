@@ -1,4 +1,5 @@
 import React from 'react';
+import moment from 'moment';
 
 import firebase from '../../firebase';
 import { setSelectedTag } from '../../actions'
@@ -45,6 +46,8 @@ class MonitoredTags extends React.Component {
 
     isFormValid = ({ tagName, tagDuration }) => tagName && tagDuration
 
+    timeFromNow = timestamp => moment(timestamp).fromNow()
+    
     addTag = () => {
         const { monitoredTagsRef, tagName, tagDuration, user } = this.state
 
@@ -53,7 +56,8 @@ class MonitoredTags extends React.Component {
         const newTag = {
             tagId: key,
             tagName: tagName,
-            timestamp: firebase.database.ServerValue.TIMESTAMP,
+            monitorStartDate: moment().toISOString(),
+            monitorEndDate: moment().add(tagDuration, 'days').toISOString(),
             tagDuration: tagDuration,
             createdBy: {
                 user: user.uid,
@@ -61,6 +65,8 @@ class MonitoredTags extends React.Component {
                 avatar: user.photoURL
             }
         }
+        // console.log(this.timeFromNow(newTag.monitorStartDate))
+        // console.log(!moment().isAfter(newTag.monitorEndDate))
 
         monitoredTagsRef.child(key).update(newTag)
             .then(() =>{
