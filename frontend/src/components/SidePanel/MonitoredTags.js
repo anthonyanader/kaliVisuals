@@ -1,10 +1,12 @@
 import React from 'react';
+import moment from 'moment';
 
 import firebase from '../../firebase';
 import { setSelectedTag } from '../../actions'
 
 import { connect } from 'react-redux';
 import { Menu, Icon, Form, Button, Input, Modal } from 'semantic-ui-react';
+
 
 class MonitoredTags extends React.Component {
     state = {
@@ -44,6 +46,8 @@ class MonitoredTags extends React.Component {
 
     isFormValid = ({ tagName, tagDuration }) => tagName && tagDuration
 
+    timeFromNow = timestamp => moment(timestamp).fromNow()
+    
     addTag = () => {
         const { monitoredTagsRef, tagName, tagDuration, user } = this.state
 
@@ -52,12 +56,17 @@ class MonitoredTags extends React.Component {
         const newTag = {
             tagId: key,
             tagName: tagName,
+            monitorStartDate: moment().toISOString(),
+            monitorEndDate: moment().add(tagDuration, 'days').toISOString(),
             tagDuration: tagDuration,
             createdBy: {
+                user: user.uid,
                 name: user.displayName,
                 avatar: user.photoURL
             }
         }
+        // console.log(this.timeFromNow(newTag.monitorStartDate))
+        // console.log(!moment().isAfter(newTag.monitorEndDate))
 
         monitoredTagsRef.child(key).update(newTag)
             .then(() =>{
@@ -74,12 +83,26 @@ class MonitoredTags extends React.Component {
         let loadedTags = []
         this.state.monitoredTagsRef.on('child_added', snapshot => {
             loadedTags.push(snapshot.val())
-            this.setState({ monitoredTags: loadedTags }, () => this.setInitialTag())
+            this.setUserMonitoredTags(loadedTags)
         })
+        
     }
 
     removeListeners = () => {
         this.state.monitoredTagsRef.off()
+    }
+
+    setUserMonitoredTags = loadedTags => {
+        const { user } = this.state
+        
+        let userMonitoredTags = []
+        
+        loadedTags
+        .filter(tag => tag.createdBy.user === user.uid)
+        .map(tag => userMonitoredTags.push(tag))
+        
+        this.setState({ monitoredTags: userMonitoredTags, tagLoaded: true }, () => this.setInitialTag())
+        
     }
 
     displayTags = monitoredTags => (
