@@ -56,8 +56,8 @@ class MonitoredTags extends React.Component {
         const newTag = {
             tagId: key,
             tagName: tagName,
-            monitorStartDate: moment().toISOString(),
-            monitorEndDate: moment().add(tagDuration, 'days').toISOString(),
+            monitorStartDate: moment().format(),
+            monitorEndDate: moment().add(tagDuration, 'days').format(),
             tagDuration: tagDuration,
             createdBy: {
                 user: user.uid,
@@ -66,8 +66,6 @@ class MonitoredTags extends React.Component {
             }
         }
         // console.log(this.timeFromNow(newTag.monitorStartDate))
-        // console.log(!moment().isAfter(newTag.monitorEndDate))
-
         monitoredTagsRef.child(key).update(newTag)
             .then(() =>{
                 this.setState({ tagName: '', tagDuration: ''})
