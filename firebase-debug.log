@@ -96,3 +96,31 @@
 [info] ✔  functions: tagToMonitor: http://localhost:5000/kali-visuals/us-central1/tagToMonitor
 [info] ✔  functions: scheduledSentimentBatch: http://localhost:5000/kali-visuals/us-central1/scheduledSentimentBatch
 [info] ✔  functions: getDBSnapshot: http://localhost:5000/kali-visuals/us-central1/getDBSnapshot
+[debug] [2018-11-07T02:19:48.650Z] ----------------------------------------------------------------------
+[debug] [2018-11-07T02:19:48.653Z] Command:       /usr/local/bin/node /usr/local/bin/firebase serve
+[debug] [2018-11-07T02:19:48.654Z] CLI Version:   6.0.1
+[debug] [2018-11-07T02:19:48.654Z] Platform:      darwin
+[debug] [2018-11-07T02:19:48.654Z] Node Version:  v6.11.5
+[debug] [2018-11-07T02:19:48.654Z] Time:          Tue Nov 06 2018 21:19:48 GMT-0500 (EST)
+[debug] [2018-11-07T02:19:48.654Z] ----------------------------------------------------------------------
+[debug] 
+[debug] [2018-11-07T02:19:48.668Z] > command requires scopes: ["email","openid","https://www.googleapis.com/auth/cloudplatformprojects.readonly","https://www.googleapis.com/auth/firebase","https://www.googleapis.com/auth/cloud-platform"]
+[debug] [2018-11-07T02:19:48.668Z] > authorizing via signed-in user
+[debug] [2018-11-07T02:19:48.668Z] [iam] checking project kali-visuals for permissions ["firebase.projects.get"]
+[debug] [2018-11-07T02:19:48.670Z] >>> HTTP REQUEST POST https://cloudresourcemanager.googleapis.com/v1/projects/kali-visuals:testIamPermissions  
+
+[debug] [2018-11-07T02:19:49.052Z] <<< HTTP RESPONSE 200
+[debug] [2018-11-07T02:19:49.053Z] >>> HTTP REQUEST GET https://cloudresourcemanager.googleapis.com/v1/projects/kali-visuals  
+ 
+[debug] [2018-11-07T02:19:49.368Z] <<< HTTP RESPONSE 200
+[info] 
+[info] === Serving from '/Users/Anthony/Documents/workspace/kaliVisuals'...
+[info] 
+[info] i  functions: Preparing to emulate functions.
+[debug] [2018-11-07T02:19:50.240Z] Fetching environment
+[debug] [2018-11-07T02:19:50.243Z] >>> HTTP REQUEST GET https://mobilesdk-pa.googleapis.com/v1/projects/29486680435:getServerAppConfig  
+ 
+[debug] [2018-11-07T02:19:50.516Z] <<< HTTP RESPONSE 200
+[debug] [2018-11-07T02:19:50.517Z] Starting @google-cloud/functions-emulator
+[debug] [2018-11-07T02:19:52.058Z] Parsing function triggers
+[info] i  functions: No HTTPS functions found. Use firebase functions:shell if you would like to emulate other types of functions.
