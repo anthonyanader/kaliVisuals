@@ -25,33 +25,33 @@ class MonitoredTags extends React.Component {
     }
 
     componentWillUnmount() {
-        this.removeListeners()
+        this.removeListeners();
     }
 
-    closeModal = () => this.setState({ modal: false })
+    closeModal = () => this.setState({ modal: false });
     
-    openModal = () => this.setState({ modal: true })
+    openModal = () => this.setState({ modal: true });
 
     handleChange = event => {
-        this.setState({ [event.target.name]: event.target.value })
+        this.setState({ [event.target.name]: event.target.value });
     }
 
     handleSubmit = event => {
-        event.preventDefault()
+        event.preventDefault();
 
         if(this.isFormValid(this.state)) {
-            this.addTag()
+            this.addTag();
         }
     }
 
-    isFormValid = ({ tagName, tagDuration }) => tagName && tagDuration
+    isFormValid = ({ tagName, tagDuration }) => tagName && tagDuration;
 
-    timeFromNow = timestamp => moment(timestamp).fromNow()
+    timeFromNow = timestamp => moment(timestamp).fromNow();
     
     addTag = () => {
-        const { monitoredTagsRef, tagName, tagDuration, user } = this.state
+        const { monitoredTagsRef, tagName, tagDuration, user } = this.state;
 
-        const key = monitoredTagsRef.push().key
+        const key = monitoredTagsRef.push().key;
 
         const newTag = {
             tagId: key,
@@ -68,38 +68,38 @@ class MonitoredTags extends React.Component {
         // console.log(this.timeFromNow(newTag.monitorStartDate))
         monitoredTagsRef.child(key).update(newTag)
             .then(() =>{
-                this.setState({ tagName: '', tagDuration: ''})
-                this.closeModal()
-                console.log('Tag Added!')
+                this.setState({ tagName: '', tagDuration: ''});
+                this.closeModal();
+                console.log('Tag Added!');
             })
             .catch(err => {
-                console.log(err)
+                console.log(err);
             })
     }
 
     addListeners = () => {
-        let loadedTags = []
+        let loadedTags = [];
         this.state.monitoredTagsRef.on('child_added', snapshot => {
-            loadedTags.push(snapshot.val())
-            this.setUserMonitoredTags(loadedTags)
+            loadedTags.push(snapshot.val());
+            this.setUserMonitoredTags(loadedTags);
         })
         
     }
 
     removeListeners = () => {
-        this.state.monitoredTagsRef.off()
+        this.state.monitoredTagsRef.off();
     }
 
     setUserMonitoredTags = loadedTags => {
-        const { user } = this.state
+        const { user } = this.state;
         
-        let userMonitoredTags = []
+        let userMonitoredTags = [];
         
         loadedTags
         .filter(tag => tag.createdBy.user === user.uid)
         .map(tag => userMonitoredTags.push(tag))
         
-        this.setState({ monitoredTags: userMonitoredTags, tagLoaded: true }, () => this.setInitialTag())
+        this.setState({ monitoredTags: userMonitoredTags, tagLoaded: true }, () => this.setInitialTag());
         
     }
 
@@ -114,30 +114,30 @@ class MonitoredTags extends React.Component {
             >#{tag.tagName}
             </Menu.Item>
         ))
-    )
+    );
 
     selectTag = tag => {
-        this.setActiveTag(tag)
-        this.props.setSelectedTag(tag)
+        this.setActiveTag(tag);
+        this.props.setSelectedTag(tag);
     }
 
     setActiveTag = tag => {
-        this.setState({ activeTag: tag.tagId })
+        this.setState({ activeTag: tag.tagId });
     }
 
     setInitialTag = () => {
-        const firstMonitoredTag = this.state.monitoredTags[0]
+        const firstMonitoredTag = this.state.monitoredTags[0];
 
         if (this.state.tagLoaded && this.state.monitoredTags.length > 0) {
-            this.props.setSelectedTag(firstMonitoredTag)
-            this.setActiveTag(firstMonitoredTag)
+            this.props.setSelectedTag(firstMonitoredTag);
+            this.setActiveTag(firstMonitoredTag);
         }
-        this.setState({ tagLoaded: false })
+        this.setState({ tagLoaded: false });
     }
 
     render() {
 
-        const { monitoredTags, modal } = this.state
+        const { monitoredTags, modal } = this.state;
 
         return(
             <React.Fragment>
