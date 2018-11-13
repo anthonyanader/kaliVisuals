@@ -65,7 +65,7 @@ class MonitoredTags extends React.Component {
                 avatar: user.photoURL
             }
         }
-        // console.log(this.timeFromNow(newTag.monitorStartDate))
+        
         monitoredTagsRef.child(key).update(newTag)
             .then(() =>{
                 this.setState({ tagName: '', tagDuration: ''});
