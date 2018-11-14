@@ -20,6 +20,7 @@ const App = ({ currentUser, currentTag }) => (
             <Dashboard 
                 key={ currentTag && currentTag.tagId }
                 currentTag={ currentTag }
+                currentUser={ currentUser }
             />
         </Grid.Column>
     </Grid>
