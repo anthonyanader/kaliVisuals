@@ -1,42 +1,23 @@
-export default (data) => {
+export default (seriesData) => {
     return {
+        chart: {
+            type: 'column',
+            animation: {
+                duration: 2000
+              }
+        },
         title: {
             text: 'Sentiment Analysis'
         },
-        
-        legend: {
-            layout: 'vertical',
-            align: 'right',
-            verticalAlign: 'middle'
+        yAxis: {
+            title:{
+                text: 'Sentiment Score'
+            },
         },
+        credits: {
+            enabled: false
+        },
+        series: seriesData,
 
-        credits: false,
-        
-        plotOptions: {
-            series: {
-            label: {
-                connectorAllowed: false
-            },
-            pointStart: 2010
-            }
-        },
-        
-        series: data,
-        
-        responsive: {
-            rules: [{
-            condition: {
-                maxWidth: 500
-            },
-            chartOptions: {
-                legend: {
-                layout: 'horizontal',
-                align: 'center',
-                verticalAlign: 'bottom'
-                }
-            }
-            }]
-        }
     }
-
 }

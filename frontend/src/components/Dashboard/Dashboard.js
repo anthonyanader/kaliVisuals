@@ -46,10 +46,23 @@ class Dashboard extends React.Component {
             })
         })
     }
+
+   prepareChartData = sentimentBucketArray => {
+        let sentimentScore = [];
+        
+        sentimentBucketArray.length > 0 && 
+        sentimentBucketArray.map((sentiment, index) => (
+            sentimentScore.push({
+                name: `Day ${index + 1}`,
+                data:[sentiment.sentimentScore]
+            })
+        ));
+        return sentimentScore;
+   }
     
 
     render() {
-        const { currentTag } = this.state;
+        const { currentTag, sentimentBucket } = this.state;
         return (
             <React.Fragment>
                 <DashboardHeader 
@@ -57,7 +70,7 @@ class Dashboard extends React.Component {
                     added={this.displayAddedTime(currentTag)}
                 />
                 <Segment>
-                    <ReactHighcharts config={HighchartsConfig()}/>
+                    <ReactHighcharts config={HighchartsConfig(this.prepareChartData(sentimentBucket))}/>
                 </Segment>
             </React.Fragment>
         )
