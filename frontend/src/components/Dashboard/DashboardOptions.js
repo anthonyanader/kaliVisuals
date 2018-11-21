@@ -1,6 +1,7 @@
 import React from 'react';
 
 import firebase from '../../firebase';
+import moment from 'moment';
 
 import { clearTag } from '../../actions'
 import { connect } from 'react-redux';
@@ -13,7 +14,7 @@ class DashboardOptions extends React.Component {
         deleteModal: false,
         deletingItem: false,
         resetModal: false,
-        emptyTags: true
+        resetingTag: false
 
     }
 
@@ -25,6 +26,7 @@ class DashboardOptions extends React.Component {
 
     closeResetModal = () => this.setState({resetModal: false});
     
+    disableOptionButtons = () => this.state.currentTag === null;
 
     handleDelete = event => {
         event.preventDefault();
@@ -41,8 +43,7 @@ class DashboardOptions extends React.Component {
         const { monitoredTagsRef, currentTag } = this.state;
 
         monitoredTagsRef.child(currentTag.tagId).remove()
-        .then(() =>{
-            this.props.clearTag();
+        .then(() => {
             this.setState({
                 deletingItem: false
             });
@@ -57,6 +58,35 @@ class DashboardOptions extends React.Component {
         
     }
 
+    handleReset = event => {
+        event.preventDefault();
+        
+        this.setState({
+            resetingTag: true
+        }, () => {
+            this.resetTag();
+        })
+    }
+
+    resetTag = () => {
+        const { monitoredTagsRef, currentTag } = this.state;
+
+        monitoredTagsRef.child(currentTag.tagId).update({
+            monitorEndDate: moment(currentTag.monitorEndDate).add(currentTag.tagDuration, 'days').format()
+        })
+        .then(() => {
+            this.setState({
+                resetingItem: false
+            });
+            this.closeResetModal();
+            console.log('Tag Reset!');
+            
+        })
+        .catch(err => {
+            console.log(err);
+        })
+    }
+
     render(){
         const { resetModal, deleteModal } = this.state;
 
@@ -65,6 +95,7 @@ class DashboardOptions extends React.Component {
                 <Segment>
                     <Button.Group icon widths="2">
                         <Button
+                            disabled={this.disableOptionButtons()}
                             onClick={this.openResetModal}
                             color="grey"
                             content="Reset Tag"
@@ -72,6 +103,7 @@ class DashboardOptions extends React.Component {
                             icon="repeat"
                         ></Button>
                         <Button
+                            disabled={this.disableOptionButtons()}
                             onClick={this.openDeleteModal}
                             color="red"
                             content="Delete Tag"
@@ -103,9 +135,9 @@ class DashboardOptions extends React.Component {
                 </Modal.Content>
                 <Modal.Actions>
                     <Button 
-                        onClick={console.log('reset')}
                         color="green"
                         inverted
+                        onClick={this.resetTag}
                     >
                     <Icon name="checkmark" /> Reset
                     </Button>

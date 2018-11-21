@@ -2,7 +2,7 @@ import React from 'react';
 import moment from 'moment';
 
 import firebase from '../../firebase';
-import { setSelectedTag } from '../../actions'
+import { setSelectedTag, clearTag } from '../../actions'
 
 import { connect } from 'react-redux';
 import { Menu, Icon, Form, Button, Input, Modal } from 'semantic-ui-react';
@@ -82,7 +82,19 @@ class MonitoredTags extends React.Component {
         this.state.monitoredTagsRef.on('child_added', snapshot => {
             loadedTags.push(snapshot.val());
             this.setUserMonitoredTags(loadedTags);
-        })
+        });
+
+        this.state.monitoredTagsRef.on('child_removed', snapshot => { 
+            const removedTagKey = snapshot.key;
+            this.updateMonitoredTags(removedTagKey)
+        });
+
+    }
+
+    updateMonitoredTags = key => {
+        const monitoredTags = this.state.monitoredTags.filter(tag=> tag.tagId !== key)
+            this.props.clearTag();
+            this.setState({monitoredTags});
     }
 
     removeListeners = () => {
@@ -94,11 +106,18 @@ class MonitoredTags extends React.Component {
         
         let userMonitoredTags = [];
         
-        loadedTags
-        .filter(tag => tag.createdBy.user === user.uid)
-        .map(tag => userMonitoredTags.push(tag))
+        try{
+            loadedTags
+            .filter(tag => tag.createdBy.user === user.uid)
+            .map(tag => userMonitoredTags.push(tag))
+            this.setState({ monitoredTags: userMonitoredTags, tagLoaded: true }, () => this.setInitialTag());
+        }
+        catch(err){
+            console.log(err);
+        }
         
-        this.setState({ monitoredTags: userMonitoredTags, tagLoaded: true }, () => this.setInitialTag());
+        
+        
         
     }
 
@@ -188,4 +207,4 @@ class MonitoredTags extends React.Component {
     }
 }
 
-export default connect(null, { setSelectedTag })(MonitoredTags);
+export default connect(null, { setSelectedTag, clearTag })(MonitoredTags);
