@@ -4,6 +4,7 @@
   "private": true,
   "dependencies": {
     "chart.js": "^2.7.3",
+    "chartjs-plugin-annotation": "^0.5.7",
     "emoji-mart": "^2.6.1",
     "firebase": "^5.3.0",
     "md5": "^2.2.1",
@@ -14,7 +15,6 @@
     "react-chartjs-2": "^2.7.4",
     "react-color": "^2.14.1",
     "react-dom": "^16.4.1",
-    "react-highcharts": "^16.0.2",
     "react-redux": "^5.0.7",
     "react-router-dom": "^4.3.1",
     "react-scripts": "^1.1.5",
