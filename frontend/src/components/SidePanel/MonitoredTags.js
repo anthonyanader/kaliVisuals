@@ -83,7 +83,6 @@ class MonitoredTags extends React.Component {
             loadedTags.push(snapshot.val());
             this.setUserMonitoredTags(loadedTags);
         })
-        
     }
 
     removeListeners = () => {

@@ -18,9 +18,9 @@ const App = ({ currentUser, currentTag }) => (
 
         <Grid.Column style={{ marginLeft: 260 }}>
             <Dashboard 
-                key={ currentTag && currentTag.tagId }
-                currentTag={ currentTag }
-                currentUser={ currentUser }
+                key={currentTag && currentTag.tagId}
+                currentTag={currentTag}
+                currentUser={currentUser}
             />
         </Grid.Column>
     </Grid>
