@@ -1,13 +1,11 @@
 import React from 'react';
 
 import moment from 'moment';
-import ReactHighcharts from 'react-highcharts';
+import firebase from '../../firebase';
 
-import { Segment } from 'semantic-ui-react';
-
-import firebase from '../../firebase'
 import DashboardHeader from './DashboardHeader';
-import HighchartsConfig from './HighchartsConfig';
+import DashboardChart from './DashboardChart';
+import DashboardOptions from './DashboardOptions';
 
 class Dashboard extends React.Component {
     state = {
@@ -15,31 +13,35 @@ class Dashboard extends React.Component {
         currentTag: this.props.currentTag,
         monitoredTagsRef: firebase.database().ref('monitoredTags'),
         sentimentLoading: true,
-        sentimentBucket: []
+        sentimentBucket: [],
+        chartData: {}
     }
 
-    componentDidMount() {
+    componentWillMount() {
         const { currentTag, user } = this.state;
 
         if(currentTag && user) {
-            this.addListeners(currentTag.tagId);
+            this.fetchTagSentimentData(currentTag.tagId);
+        }
+
+    }
+
+    componentDidMount(){
+        const { sentimentBucket } = this.state;
+        
+        if(sentimentBucket.length > 0){
+            this.prepareChartData();
         }
     }
 
-    displayTagName = tag => tag ? `#${tag.tagName}` : '';
-    
-    timeFromNow = timestamp => moment(timestamp).fromNow();
-    
-    displayAddedTime = tag => tag ?`Added ${this.timeFromNow(tag.monitorStartDate)}` : '';
-
-    addListeners = tagId => {
-        this.addTagListener(tagId)
-    }
-
-    addTagListener = tagId => {
+    fetchTagSentimentData = tagId => {
         let loadedSentiments = [];
-        this.state.monitoredTagsRef.child(tagId).child('sentimentBucket').on('child_added', snapshot => {
-            loadedSentiments.push(snapshot.val())
+
+        this.state.monitoredTagsRef.child(tagId).child('sentimentBucket').once('value', snapshot => {
+            snapshot.forEach(tag => {
+                loadedSentiments.push(tag.val())
+            })
+            
             this.setState({
                 sentimentBucket: loadedSentiments,
                 sentimentLoading: false
@@ -47,31 +49,49 @@ class Dashboard extends React.Component {
         })
     }
 
-   prepareChartData = sentimentBucketArray => {
-        let sentimentScore = [];
-        
-        sentimentBucketArray.length > 0 && 
-        sentimentBucketArray.map((sentiment, index) => (
-            sentimentScore.push({
-                name: `Day ${index + 1}`,
-                data:[sentiment.sentimentScore]
-            })
-        ));
-        return sentimentScore;
-   }
-    
+    prepareChartData = () => {
+        const { sentimentBucket } = this.state;
 
+        const dailyScore = [];
+        const labels = [];
+        
+        sentimentBucket.forEach((sentiment, index) => {
+            dailyScore.push(sentiment.sentimentScore);
+            labels.push(`Day ${index + 1}`);
+        })
+        
+        this.setState({
+            chartData: {
+                labels: labels,
+                datasets:[{
+                    data: dailyScore,
+                    label: "Sentiment Score",
+                    borderColor: "#3e95cd"
+                }]
+            }
+        });
+        
+    } 
+
+    displayTagName = tag => tag ? `#${tag.tagName}` : '';
+    
+    timeFromNow = timestamp => moment(timestamp).fromNow();
+    
+    displayAddedTime = tag => tag ?`Added ${this.timeFromNow(tag.monitorStartDate)}` : '';
+    
     render() {
-        const { currentTag, sentimentBucket } = this.state;
+        const { currentTag} = this.state;
+
         return (
             <React.Fragment>
                 <DashboardHeader 
                     tagName={this.displayTagName(currentTag)} 
                     added={this.displayAddedTime(currentTag)}
                 />
-                <Segment>
-                    <ReactHighcharts config={HighchartsConfig(this.prepareChartData(sentimentBucket))}/>
-                </Segment>
+                <DashboardChart chartData={this.state.chartData} />
+                <DashboardOptions 
+                    currentTag={currentTag}
+                />
             </React.Fragment>
         )
     }
