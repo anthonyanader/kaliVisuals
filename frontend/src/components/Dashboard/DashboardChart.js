@@ -5,6 +5,23 @@ import 'chartjs-plugin-annotation';
 import { Segment } from 'semantic-ui-react';
 
 class DashboardChart extends React.Component {
+    state = {
+        options:{
+            scales: {
+                yAxes: [{
+                    ticks: {
+                        beginAtZero: true,
+                        userCallback: function(label) {
+                            if (Math.floor(label) === label) {
+                                return label;
+                            }
+    
+                        },
+                    }
+                }],
+            },
+        }
+    };
     render(){
         return(
             <Segment>
@@ -13,7 +30,7 @@ class DashboardChart extends React.Component {
                     width={400}
                     redraw={true}
                     height={175}
-                    options={{}}
+                    options={this.state.options}
                 />
             </Segment>
         )    

@@ -92,7 +92,7 @@ class MonitoredTags extends React.Component {
     }
 
     updateMonitoredTags = key => {
-        const monitoredTags = this.state.monitoredTags.filter(tag=> tag.tagId !== key)
+        const monitoredTags = this.state.monitoredTags.filter(tag => tag.tagId !== key)
             this.props.clearTag();
             this.setState({monitoredTags});
     }
@@ -105,20 +105,16 @@ class MonitoredTags extends React.Component {
         const { user } = this.state;
         
         let userMonitoredTags = [];
-        
-        try{
-            loadedTags
-            .filter(tag => tag.createdBy.user === user.uid)
-            .map(tag => userMonitoredTags.push(tag))
-            this.setState({ monitoredTags: userMonitoredTags, tagLoaded: true }, () => this.setInitialTag());
-        }
-        catch(err){
-            console.log(err);
-        }
-        
-        
-        
-        
+            try{
+                loadedTags
+                .filter(tag => tag.createdBy.user === user.uid)
+                .map(tag => userMonitoredTags.push(tag));
+                this.setState({ monitoredTags: userMonitoredTags, tagLoaded: true }, () => this.setInitialTag());
+            }
+            catch(err){
+                console.log(err);
+            }
+    
     }
 
     displayTags = monitoredTags => (
