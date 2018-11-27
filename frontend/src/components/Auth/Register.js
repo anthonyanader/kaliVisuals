@@ -18,34 +18,33 @@ class Register extends React.Component{
     handleChange = event => {
         this.setState({
             [event.target.name]: event.target.value
-        })
+        });
     }
 
     handleSubmit = event => {
-        event.preventDefault()
+        event.preventDefault();
 
         if (this.isFormValid()) {
-            this.setState({ errors: [], loading: true })
+            this.setState({ errors: [], loading: true });
             firebase.auth().createUserWithEmailAndPassword(this.state.email, this.state.password)
                 .then(createdUser => {
-                    console.log(createdUser)
                     createdUser.user.updateProfile({
                         displayName: this.state.username,
                         photoURL: `http://gravatar.com/avatar/${md5(createdUser.user.email)}?d=identicon`
                     })
                     .then(() =>{
                         this.saveUser(createdUser).then(() => {
-                            console.log('user saved')
+                            console.log('user saved');
                         })
                     })
                     .catch(err => {
-                        console.error(err)
-                        this.setState({ errors: this.state.errors.concat(err), loading: false })
+                        console.error(err);
+                        this.setState({ errors: this.state.errors.concat(err), loading: false });
                     })
                 })
                 .catch(err => {
-                    console.error(err)
-                    this.setState({ errors: this.state.errors.concat(err), loading: false })
+                    console.error(err);
+                    this.setState({ errors: this.state.errors.concat(err), loading: false });
                 })
         }
     }
@@ -53,39 +52,40 @@ class Register extends React.Component{
     handleInputError = (errors, inputName) => {
         return errors.some(error =>
             error.message.toLowerCase().includes(inputName)
-        ) ? 'error' : ''
+        ) ? 'error' : '';
     }
 
     isFormValid = () => {
-        let errors = []
-        let error
+        let errors = [];
+        let error;
         
         if (this.isFormEmpty(this.state)) {
-            error = { message: 'Please fill in all fields' }
-            this.setState({ errors: errors.concat(error) })
-            return false
+            error = { message: 'Please fill in all fields' };
+            this.setState({ errors: errors.concat(error) });
+            return false;
 
         } else if (!this.isPasswordValid(this.state)) {
-            error = { message: 'Password must be at least 6 characters and match' }
-            this.setState({ errors: errors.concat(error) })
-            return false
+            error = { message: 'Password must be at least 6 characters and match' };
+            this.setState({ errors: errors.concat(error) });
+            return false;
 
         } else {
-            return true
+            return true;
         }
     }
 
     isFormEmpty = ({ username, email, password, passwordConfirmation }) => {
-        return !username.length || !email.length || !password.length || !passwordConfirmation.length
+        return !username.length || !email.length || !password.length || !passwordConfirmation.length;
     }
 
     isPasswordValid = ({ password, passwordConfirmation }) => {
         if (password.length < 6 || passwordConfirmation.length < 6) {
-            return false
+            return false;
+        
         } else if (password !== passwordConfirmation) {
-            return false
+            return false;
         }
-        return true
+        return true;
     }
 
     displayErrors = errors => errors.map((error, i) => <p key={i}>{error.message}</p>)
@@ -94,7 +94,7 @@ class Register extends React.Component{
         return this.state.usersRef.child(createdUser.user.uid).set({
             name: createdUser.user.displayName,
             avatar: createdUser.user.photoURL
-        })
+        });
     }
 
     render(){

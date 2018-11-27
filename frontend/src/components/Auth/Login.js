@@ -11,25 +11,26 @@ class Login extends React.Component{
         loading: false
     }
 
-    displayErrors = errors => errors.map((error, i) => <p key={i}>{error.message}</p>)
+    displayErrors = errors => errors.map((error, i) => <p key={i}>{error.message}</p>);
 
     handleChange = event => {
         this.setState({
             [event.target.name]: event.target.value
-        })
+        });
     }
 
     handleSubmit = event => {
-        event.preventDefault()
+        event.preventDefault();
+
         if (this.isFormValid(this.state)) {
             this.setState({ errors: [], loading: true })
             firebase.auth().signInWithEmailAndPassword(this.state.email, this.state.password)
                 .then(signedUser => {
-                    console.log(signedUser)
+                    console.log(signedUser);
                 })
                 .catch(err => {
-                    console.log(err)
-                    this.setState({ errors: this.state.errors.concat(err), loading: false })
+                    console.log(err);
+                    this.setState({ errors: this.state.errors.concat(err), loading: false });
                 })
         }
     }
@@ -37,7 +38,7 @@ class Login extends React.Component{
     handleInputError = (errors, inputName) => {
         return errors.some(error =>
             error.message.toLowerCase().includes(inputName)
-        ) ? 'error' : ''
+        ) ? 'error' : '';
     }
 
     isFormValid = ({ email, password }) => email && password;
@@ -60,28 +61,33 @@ class Login extends React.Component{
                     <Form onSubmit={this.handleSubmit} size="large">
                         <Segment raised>
                             <Form.Input 
-                            fluid name="email" 
-                            iconPosition="left" 
-                            icon="mail"
-                            placeholder="Email" 
-                            onChange={this.handleChange} 
-                            type="email"
-                            className={this.handleInputError(errors, 'email')}
-                            value={email} />
+                                fluid name="email" 
+                                iconPosition="left" 
+                                icon="mail"
+                                placeholder="Email" 
+                                onChange={this.handleChange} 
+                                type="email"
+                                className={this.handleInputError(errors, 'email')}
+                                value={email} 
+                            />
 
                             <Form.Input 
-                            fluid name="password" 
-                            iconPosition="left" 
-                            icon="lock"
-                            placeholder="Password" 
-                            onChange={this.handleChange} 
-                            type="password"
-                            className={this.handleInputError(errors, 'password')}
-                            value={password} />
+                                fluid name="password" 
+                                iconPosition="left" 
+                                icon="lock"
+                                placeholder="Password" 
+                                onChange={this.handleChange} 
+                                type="password"
+                                className={this.handleInputError(errors, 'password')}
+                                value={password}
+                            />
 
-                            <Button disabled={loading} className={loading ? 'loading' : ''}
-                            color="violet" 
-                            fluid size="large">Submit</Button>
+                            <Button 
+                                disabled={loading} 
+                                className={loading ? 'loading' : ''}
+                                color="violet" 
+                                fluid size="large">Submit
+                            </Button>
                         </Segment>
                     </Form>
                     {errors.length > 0 && (
