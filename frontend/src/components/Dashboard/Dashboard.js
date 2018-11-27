@@ -39,13 +39,13 @@ class Dashboard extends React.Component {
 
         this.state.monitoredTagsRef.child(tagId).child('sentimentBucket').once('value', snapshot => {
             snapshot.forEach(tag => {
-                loadedSentiments.push(tag.val())
+                loadedSentiments.push(tag.val());
             })
             
             this.setState({
                 sentimentBucket: loadedSentiments,
                 sentimentLoading: false
-            })
+            });
         })
     }
 
@@ -58,15 +58,15 @@ class Dashboard extends React.Component {
         sentimentBucket.forEach((sentiment, index) => {
             dailyScore.push(sentiment.sentimentScore);
             labels.push(`Day ${index + 1}`);
-        })
+        });
         
         this.setState({
             chartData: {
                 labels: labels,
                 datasets:[{
                     data: dailyScore,
-                    label: "Sentiment Score",
-                    borderColor: "#3e95cd"
+                    label: "Twitter Sentiment Score",
+                    borderColor: "#2AA3F0"
                 }]
             }
         });
