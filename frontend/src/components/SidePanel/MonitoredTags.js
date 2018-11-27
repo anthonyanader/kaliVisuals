@@ -94,7 +94,7 @@ class MonitoredTags extends React.Component {
     updateMonitoredTags = key => {
         const monitoredTags = this.state.monitoredTags.filter(tag => tag.tagId !== key)
             this.props.clearTag();
-            this.setState({monitoredTags});
+            this.setState({monitoredTags, tagLoaded: true}, () => this.setInitialTag());
     }
 
     removeListeners = () => {
