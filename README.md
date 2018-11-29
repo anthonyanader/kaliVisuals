@@ -2,7 +2,7 @@
 
 > Social Media Monitoring via Sentiment Analysis
 
-##  💾 Installing Dependencies
+## 💾 - Installing Dependencies
 ```    
 # clone this repository
     git clone
@@ -22,7 +22,7 @@
     cd functions
     npm install
 ```
-## 🔧 API Keys
+## 🔧 - API Keys
 
 ```
 # go to the functions directory
@@ -42,9 +42,9 @@
         strictSSL:true,
     }
 ```
-## 🔑 Key Functionalities
+## 🔑 - Key Functionalities
 
-## 👾 Technologies
+## 👾 - Technologies
 
 * <p> <b>React</b> -  </p>
 <p align = "center"><a href = ""><img src="/logos/react.png" width=150px></a></p>
@@ -58,5 +58,5 @@
 * <p> <b>Twitter API</b> -  </p>
 <p align = "center"><a href = ""><img src="/logos/twitter.png" width=150px></a></p>
 
-* <p> <b>Cronjobs</b> -  </p>
+* <p> <b>Cronjob</b> -  </p>
 <p align = "center"><a href = ""><img src="/logos/cronjob.png" width=150px></a></p>
