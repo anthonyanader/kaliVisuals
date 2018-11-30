@@ -3,8 +3,6 @@ import React from 'react';
 import firebase from '../../firebase';
 import moment from 'moment';
 
-import { clearTag } from '../../actions'
-import { connect } from 'react-redux';
 import { Segment, Button, Modal, Icon } from 'semantic-ui-react';
 
 class DashboardOptions extends React.Component {
@@ -12,10 +10,13 @@ class DashboardOptions extends React.Component {
         currentTag: this.props.currentTag,
         monitoredTagsRef: firebase.database().ref('monitoredTags'),
         deleteModal: false,
-        deletingItem: false,
         resetModal: false,
         resetingTag: false
 
+    }
+
+    component(){
+        
     }
 
     openDeleteModal = () => this.setState({deleteModal: true});
@@ -28,14 +29,14 @@ class DashboardOptions extends React.Component {
     
     disableOptionButtons = () => this.state.currentTag === null;
 
+    removeListeners = () => {
+        this.state.monitoredTagsRef.off();
+    }
+
     handleDelete = event => {
         event.preventDefault();
+    this.deleteTag();
 
-        this.setState({
-            deletingItem: true
-        }, () => {
-            this.deleteTag();
-        });
         
     }
 
@@ -44,9 +45,6 @@ class DashboardOptions extends React.Component {
 
         monitoredTagsRef.child(currentTag.tagId).remove()
         .then(() => {
-            this.setState({
-                deletingItem: false
-            });
             this.closeDeleteModal();
             console.log('Tag Deleted!');
             
@@ -60,12 +58,8 @@ class DashboardOptions extends React.Component {
 
     handleReset = event => {
         event.preventDefault();
-        
-        this.setState({
-            resetingTag: true
-        }, () => {
-            this.resetTag();
-        })
+        this.resetTag();
+
     }
 
     resetTag = () => {
@@ -75,9 +69,6 @@ class DashboardOptions extends React.Component {
             monitorEndDate: moment(currentTag.monitorEndDate).add(currentTag.tagDuration, 'days').format()
         })
         .then(() => {
-            this.setState({
-                resetingItem: false
-            });
             this.closeResetModal();
             console.log('Tag Reset!');
             
@@ -158,4 +149,4 @@ class DashboardOptions extends React.Component {
      }
 }
 
-export default connect(null, { clearTag })(DashboardOptions);
+export default DashboardOptions;

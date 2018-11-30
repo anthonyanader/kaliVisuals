@@ -14,7 +14,7 @@ class Dashboard extends React.Component {
         monitoredTagsRef: firebase.database().ref('monitoredTags'),
         sentimentLoading: true,
         sentimentBucket: [],
-        chartData: {}
+        chartData: {},
     }
 
     componentWillMount() {
@@ -32,6 +32,15 @@ class Dashboard extends React.Component {
         if(sentimentBucket.length > 0){
             this.prepareChartData();
         }
+    }
+
+    componentWillUnmount() {
+        // this.removeListeners();
+    }
+
+
+    removeListeners = () => {
+        this.state.monitoredTagsRef.off();
     }
 
     fetchTagSentimentData = tagId => {

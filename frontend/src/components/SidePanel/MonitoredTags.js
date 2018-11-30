@@ -20,6 +20,10 @@ class MonitoredTags extends React.Component {
         activeTag: ''
     }
 
+    componentWillMount(){
+        this.initialTagLoad();
+    }
+
     componentDidMount(){
         this.addListeners();
     }
@@ -77,18 +81,35 @@ class MonitoredTags extends React.Component {
             })
     }
 
-    addListeners = () => {
-        let loadedTags = [];
-        this.state.monitoredTagsRef.on('child_added', snapshot => {
-            loadedTags.push(snapshot.val());
-            this.setUserMonitoredTags(loadedTags);
-        });
+    initialTagLoad = () => {
+        this.state.monitoredTagsRef.on('value', snapshot => {
+            let loadedTags = [];
 
+            snapshot.forEach(tag => {
+                loadedTags.push(tag.val());
+
+            });
+            this.collectUserTags(loadedTags);
+        })
+    }
+
+    addListeners = () => {
         this.state.monitoredTagsRef.on('child_removed', snapshot => { 
             const removedTagKey = snapshot.key;
-            this.updateMonitoredTags(removedTagKey)
+            this.updateMonitoredTags(removedTagKey);
         });
 
+    }
+
+    collectUserTags = loadedTags => {
+        const { user } = this.state;
+        const userSpecificTags = [];
+
+        loadedTags
+        .filter(tag => tag.createdBy.user === user.uid)
+        .map(tag => userSpecificTags.push(tag));
+
+        this.setState({monitoredTags: userSpecificTags }, () => this.setInitialTag());
     }
 
     updateMonitoredTags = key => {
@@ -99,22 +120,6 @@ class MonitoredTags extends React.Component {
 
     removeListeners = () => {
         this.state.monitoredTagsRef.off();
-    }
-
-    setUserMonitoredTags = loadedTags => {
-        const { user } = this.state;
-        
-        let userMonitoredTags = [];
-            try{
-                loadedTags
-                .filter(tag => tag.createdBy.user === user.uid)
-                .map(tag => userMonitoredTags.push(tag));
-                this.setState({ monitoredTags: userMonitoredTags, tagLoaded: true }, () => this.setInitialTag());
-            }
-            catch(err){
-                console.log(err);
-            }
-    
     }
 
     displayTags = monitoredTags => (
