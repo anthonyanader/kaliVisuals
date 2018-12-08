@@ -44,17 +44,23 @@
 ```
 ## 👾 - Technologies
 
-* <p> <b>React</b> -  A JavaScript library for building user interfaces.</p>
+* <p> <b>React</b> -  The entire client side is built using React and styled using Semantic-UI-React. </p>
 <p align = "center"><a href = "https://reactjs.org"><img src="/logos/react.png" width=200px></a></p>
 
-* <p> <b>Firebase</b> - Firebase builds more powerful, secure and scalable apps, using world-class infrastructure. </p>
+* <p> <b>Firebase</b> - Firebase Auth, Firebase Realtime Database abd Cloud Functions are powering the entire backend of this web application. </p>
 <p align = "center"><a href = "https://firebase.google.com"><img src="/logos/firebase.png" width=200px></a></p>
 
 * <p> <b>Sentiment</b> - AFINN-based sentiment analysis for Node.js. </p>
 <p align = "center"><a href = "https://github.com/thisandagain/sentiment"><img src="/logos/sentiment.png" width=150px></a></p>
 
-* <p> <b>Twitter API</b> - Evaluate Twitter data to inform business decisions. </p>
-<p align = "center"><a href = "https://developer.twitter.com/content/developer-twitter/en.html"><img src="/logos/twitter.png" width=200px></a></p>
+* <p> <b>Twitter API</b> - Parsing hundreds of tweets/call/day and aggregating sentiment score. </p>
+<p align = "center"><a href = "https://developer.twitter.com/content/developer-twitter/en.html"><img src="/logos/twitter.png" width=150px></a></p>
 
-* <p> <b>Cronjob</b> - Scheduled execution of API endpoints and scripts. </p>
+* <p> <b>Cronjob</b> - Scheduled execution of scripts. </p>
 <p align = "center"><a href = "https://cron-job.org/en/"><img src="/logos/cronjob.png" width=200px></a></p>
+
+##  🐜 - Known Bugs
+* Warning -- when user deletes a monitored hashtag, warning is emitted because chart did not unmount correctly
+
+## 🔗 - Coming Features
+* Change user avatar
