@@ -50,7 +50,7 @@
 
 * [**Sentiment**](https://github.com/thisandagain/sentiment) - AFINN-based sentiment analysis for Node.js
 
-* [**Twitter API**]("https://developer.twitter.com/content/developer-twitter/en.html") - Parsing hundreds of tweets/call/day and aggregating sentiment score. Working in conjunction with cloud functions running Node, to parse tweets and calculate sentiment
+* [**Twitter-API**]("https://developer.twitter.com/content/developer-twitter/en.html") - Parsing hundreds of tweets/call/day and aggregating sentiment score. Working in conjunction with cloud functions running Node, to parse tweets and calculate sentiment
 
 * [**Cron-Job**](https://cron-job.org/en/) - Daily scheduled execution of fetching and analyzing sentiment data before displaying the data on the dashboard. *looking to move the scheduling of tasks to google compute engine*
 
