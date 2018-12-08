@@ -44,23 +44,18 @@
 ```
 ## 👾 - Technologies
 
-* <p> <b>React</b> -  The entire client side is built using React and styled using Semantic-UI-React. </p>
-<p align = "center"><a href = "https://reactjs.org"><img src="/logos/react.png" width=200px></a></p>
+* [**React**](https://reactjs.org) -  The entire client side is built using React and styled using Semantic-UI-React
 
-* <p> <b>Firebase</b> - Firebase Auth, Firebase Realtime Database and Cloud Functions are powering the entire backend of this web application. </p>
-<p align = "center"><a href = "https://firebase.google.com"><img src="/logos/firebase.png" width=200px></a></p>
+* [**Firebase**](https://firebase.google.com) - Firebase Auth, Firebase Realtime Database and Cloud Functions are powering the entire backend of this web application
 
-* <p> <b>Sentiment</b> - AFINN-based sentiment analysis for Node.js. </p>
-<p align = "center"><a href = "https://github.com/thisandagain/sentiment"><img src="/logos/sentiment.png" width=150px></a></p>
+* [**Sentiment**](https://github.com/thisandagain/sentiment) - AFINN-based sentiment analysis for Node.js
 
-* <p> <b>Twitter API</b> - Parsing hundreds of tweets/call/day and aggregating sentiment score. </p>
-<p align = "center"><a href = "https://developer.twitter.com/content/developer-twitter/en.html"><img src="/logos/twitter.png" width=150px></a></p>
+* [**Twitter API**]("https://developer.twitter.com/content/developer-twitter/en.html") - Parsing hundreds of tweets/call/day and aggregating sentiment score. Working in conjunction with cloud functions running Node, to parse tweets and calculate sentiment
 
-* <p> <b>Cronjob</b> - Daily scheduled execution of fetching and analyzing sentiment data prior to displaying on dashboard. </p>
-<p align = "center"><a href = "https://cron-job.org/en/"><img src="/logos/cronjob.png" width=200px></a></p>
+* [**Cron-Job**](https://cron-job.org/en/) - Daily scheduled execution of fetching and analyzing sentiment data before displaying the data on the dashboard. *looking to move the scheduling of tasks to google compute engine*
 
 ##  🐜 - Known Bugs
-* Warning -- when user deletes a monitored hashtag, warning is emitted because chart did not unmount correctly
+* Warning -- upon user deletion of a monitored hashtag, a warning is emitted due to chart unmounting incorrectly. Most probably have to do with the DB listeners still attached to chart after deletion
 
 ## 🔗 - Coming Features
 * Change user avatar
