@@ -57,5 +57,7 @@
 ##  🐜 - Known Bugs
 * Warning -- upon user deletion of a monitored hashtag, a warning is emitted due to chart unmounting incorrectly. Most probably have to do with the DB listeners still attached to chart after deletion
 
+* Firebase updated Node for cloud functions -- can't fetch new twitter data anymore... need to investigate further [Feb, 2019]
+
 ## 🔗 - Coming Features
 * Change user avatar
