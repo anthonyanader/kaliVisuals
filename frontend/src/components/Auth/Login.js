@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import firebase from '../../firebase';
 import { Link } from 'react-router-dom';
 import {
   Button,
@@ -11,13 +10,19 @@ import {
   Segment
 } from 'semantic-ui-react';
 
+import firebase from '../../firebase';
+
 class Login extends Component {
-  state = {
-    email: '',
-    password: '',
-    errors: [],
-    loading: false
-  };
+  constructor(props) {
+    super(props);
+
+    this.state = {
+      email: '',
+      password: '',
+      errors: [],
+      loading: false
+    };
+  }
 
   displayErrors = errors =>
     errors.map((error, key) => <p key={key}>{error.message}</p>);

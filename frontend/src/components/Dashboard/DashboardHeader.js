@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
-
-import { Header, Icon, Segment  } from 'semantic-ui-react';
+import { Header, Icon, Segment } from 'semantic-ui-react';
 
 class DashboardHeader extends Component {
   render() {

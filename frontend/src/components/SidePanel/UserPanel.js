@@ -4,9 +4,13 @@ import firebase from '../../firebase';
 import { Dropdown, Grid, Header, Image } from 'semantic-ui-react';
 
 class UserPanel extends Component {
-  state = {
-    user: this.props.currentUser
-  };
+  constructor(props) {
+    super(props);
+
+    this.state = {
+      user: this.props.currentUser
+    };
+  }
 
   dropdownOptions = () => [
     {

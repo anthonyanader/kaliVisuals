@@ -15,15 +15,19 @@ import {
 } from 'semantic-ui-react';
 
 class Register extends Component {
-  state = {
-    username: '',
-    email: '',
-    password: '',
-    passwordConfirmation: '',
-    errors: [],
-    loading: false,
-    usersRef: firebase.database().ref('users')
-  };
+  constructor(props) {
+    super(props);
+
+    this.state = {
+      username: '',
+      email: '',
+      password: '',
+      passwordConfirmation: '',
+      errors: [],
+      loading: false,
+      usersRef: firebase.database().ref('users')
+    };
+  }
 
   handleChange = event => {
     this.setState({

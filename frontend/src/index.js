@@ -1,25 +1,25 @@
+import React, { Component } from 'react';
+import ReactDOM from 'react-dom';
+
 import {
   BrowserRouter as Router,
   Switch,
   Route,
   withRouter
 } from 'react-router-dom';
+import 'semantic-ui-css/semantic.min.css';
+
 import { createStore } from 'redux';
 import { Provider, connect } from 'react-redux';
 import { composeWithDevTools } from 'redux-devtools-extension';
 
-import React, { Component } from 'react';
-import ReactDOM from 'react-dom';
-
-import 'semantic-ui-css/semantic.min.css';
+import rootReducer from './reducers';
+import { setUser, clearUser } from './actions';
 
 import App from './components/App';
 import Login from './components/Auth/Login';
 import Register from './components/Auth/Register';
 import Spinner from './components/Spinner';
-
-import rootReducer from './reducers';
-import { setUser, clearUser } from './actions';
 
 import registerServiceWorker from './registerServiceWorker';
 import firebase from './firebase';
