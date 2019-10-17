@@ -98,10 +98,10 @@ exports.scheduledSentimentBatch = functions.https.onRequest((req, res) => {
       console.log('Successfully obtained monitored tags!');
       const keys = Object.keys(monitoredTags);
 
-      for (var i = 0; i < keys.length; i++) {
-        var id = keys[i];
-        var hashtag = `%23${monitoredTags[id].tagName}`;
-        var endTime = monitoredTags[id].monitorEndDate;
+      for (let i = 0; i < keys.length; i++) {
+        let id = keys[i];
+        let hashtag = `%23${monitoredTags[id].tagName}`;
+        let endTime = monitoredTags[id].monitorEndDate;
 
         if (moment().isBefore(endTime)) {
           getNewSentimentBatch(id, hashtag);

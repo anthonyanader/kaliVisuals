@@ -1,10 +1,10 @@
-import React from 'react';
+import React, { Component } from 'react';
 import { Line } from 'react-chartjs-2';
 import 'chartjs-plugin-annotation';
 
 import { Segment } from 'semantic-ui-react';
 
-class DashboardChart extends React.Component {
+class DashboardChart extends Component {
   state = {
     options: {
       scales: {

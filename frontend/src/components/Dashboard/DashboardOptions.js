@@ -1,11 +1,11 @@
-import React from 'react';
+import React, { Component } from 'react';
 
 import firebase from '../../firebase';
 import moment from 'moment';
 
 import { Segment, Button, Modal, Icon } from 'semantic-ui-react';
 
-class DashboardOptions extends React.Component {
+class DashboardOptions extends Component {
   state = {
     currentTag: this.props.currentTag,
     monitoredTagsRef: firebase.database().ref('monitoredTags'),

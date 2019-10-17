@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { Component } from 'react';
 
 import moment from 'moment';
 import firebase from '../../firebase';
@@ -7,7 +7,7 @@ import DashboardHeader from './DashboardHeader';
 import DashboardChart from './DashboardChart';
 import DashboardOptions from './DashboardOptions';
 
-class Dashboard extends React.Component {
+class Dashboard extends Component {
   state = {
     user: this.props.currentUser,
     currentTag: this.props.currentTag,

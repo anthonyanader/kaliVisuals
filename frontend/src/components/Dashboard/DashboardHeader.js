@@ -1,8 +1,8 @@
-import React from 'react';
+import React, { Component } from 'react';
 
-import { Header, Segment, Icon } from 'semantic-ui-react';
+import { Header, Icon, Segment  } from 'semantic-ui-react';
 
-class DashboardHeader extends React.Component {
+class DashboardHeader extends Component {
   render() {
     const { tagName, added } = this.props;
 

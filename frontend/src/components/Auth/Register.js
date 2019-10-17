@@ -1,18 +1,20 @@
-import React from 'react';
-import firebase from '../../firebase';
-import md5 from 'md5';
+import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
+
+import firebase from '../../firebase';
+import uuid from 'uuid/v1';
+
 import {
-  Grid,
-  Form,
-  Segment,
   Button,
+  Form,
+  Grid,
   Header,
+  Icon,
   Message,
-  Icon
+  Segment
 } from 'semantic-ui-react';
 
-class Register extends React.Component {
+class Register extends Component {
   state = {
     username: '',
     email: '',
@@ -41,7 +43,7 @@ class Register extends React.Component {
           createdUser.user
             .updateProfile({
               displayName: this.state.username,
-              photoURL: `http://gravatar.com/avatar/${md5(
+              photoURL: `http://gravatar.com/avatar/${uuid(
                 createdUser.user.email
               )}?d=identicon`
             })

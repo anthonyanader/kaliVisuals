@@ -1,10 +1,10 @@
-import React from 'react';
+import React, { Component } from 'react';
 import { Menu } from 'semantic-ui-react';
 
 import UserPanel from './UserPanel';
 import MonitoredTags from './MonitoredTags';
 
-class SidePanel extends React.Component {
+class SidePanel extends Component {
   render() {
     const { currentUser } = this.props;
 

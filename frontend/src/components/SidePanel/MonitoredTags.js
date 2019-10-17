@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { Component } from 'react';
 import moment from 'moment';
 
 import firebase from '../../firebase';
@@ -7,7 +7,7 @@ import { setSelectedTag, clearTag } from '../../actions';
 import { connect } from 'react-redux';
 import { Menu, Icon, Form, Button, Input, Modal } from 'semantic-ui-react';
 
-class MonitoredTags extends React.Component {
+class MonitoredTags extends Component {
   state = {
     user: this.props.currentUser,
     monitoredTags: [],

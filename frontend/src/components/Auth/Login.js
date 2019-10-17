@@ -1,17 +1,17 @@
-import React from 'react';
+import React, { Component } from 'react';
 import firebase from '../../firebase';
 import { Link } from 'react-router-dom';
 import {
-  Grid,
-  Form,
-  Segment,
   Button,
+  Form,
+  Grid,
   Header,
+  Icon,
   Message,
-  Icon
+  Segment
 } from 'semantic-ui-react';
 
-class Login extends React.Component {
+class Login extends Component {
   state = {
     email: '',
     password: '',
@@ -20,7 +20,7 @@ class Login extends React.Component {
   };
 
   displayErrors = errors =>
-    errors.map((error, i) => <p key={i}>{error.message}</p>);
+    errors.map((error, key) => <p key={key}>{error.message}</p>);
 
   handleChange = event => {
     this.setState({
@@ -33,6 +33,7 @@ class Login extends React.Component {
 
     if (this.isFormValid(this.state)) {
       this.setState({ errors: [], loading: true });
+
       firebase
         .auth()
         .signInWithEmailAndPassword(this.state.email, this.state.password)
