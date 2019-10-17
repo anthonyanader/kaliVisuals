@@ -62,7 +62,12 @@ class Login extends Component {
     const { email, password, errors, loading } = this.state;
 
     return (
-      <Grid textAlign='center' verticalAlign='middle' className='app'>
+      <Grid
+        data-test='component-login'
+        textAlign='center'
+        verticalAlign='middle'
+        className='app'
+      >
         <Grid.Column style={{ maxWidth: 450 }}>
           <Header as='h1' icon color='violet' textAlign='center'>
             <Icon name='pie chart' color='violet' />

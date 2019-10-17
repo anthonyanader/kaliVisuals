@@ -10,8 +10,8 @@
     "logs": "firebase functions:log"
   },
   "dependencies": {
-    "firebase-admin": "~6.0.0",
-    "firebase-functions": "^2.0.5",
+    "firebase-admin": "^8.6.1",
+    "firebase-functions": "^3.3.0",
     "moment": "^2.22.2",
     "sentiment": "^5.0.1",
     "twit": "^2.2.11"

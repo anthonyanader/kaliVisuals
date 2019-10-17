@@ -132,7 +132,12 @@ class Register extends Component {
     } = this.state;
 
     return (
-      <Grid textAlign='center' verticalAlign='middle' className='app'>
+      <Grid
+        data-test='component-register'
+        textAlign='center'
+        verticalAlign='middle'
+        className='app'
+      >
         <Grid.Column style={{ maxWidth: 450 }}>
           <Header as='h1' icon color='violet' textAlign='center'>
             <Icon name='chart pie' color='violet' />
