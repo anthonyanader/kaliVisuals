@@ -8,14 +8,18 @@ import DashboardChart from './DashboardChart';
 import DashboardOptions from './DashboardOptions';
 
 class Dashboard extends Component {
-  state = {
-    user: this.props.currentUser,
-    currentTag: this.props.currentTag,
-    monitoredTagsRef: firebase.database().ref('monitoredTags'),
-    sentimentLoading: true,
-    sentimentBucket: [],
-    chartData: {}
-  };
+  constructor(props) {
+    super(props);
+
+    this.state = {
+      user: this.props.currentUser,
+      currentTag: this.props.currentTag,
+      monitoredTagsRef: firebase.database().ref('monitoredTags'),
+      sentimentLoading: true,
+      sentimentBucket: [],
+      chartData: {}
+    };
+  }
 
   componentWillMount() {
     const { currentTag, user } = this.state;
@@ -31,10 +35,6 @@ class Dashboard extends Component {
     if (sentimentBucket.length > 0) {
       this.prepareChartData();
     }
-  }
-
-  componentWillUnmount() {
-    //this.removeListeners();
   }
 
   removeListeners = () => {

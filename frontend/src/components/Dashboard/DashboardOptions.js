@@ -1,18 +1,21 @@
 import React, { Component } from 'react';
-
-import firebase from '../../firebase';
+import { Segment, Button, Modal, Icon } from 'semantic-ui-react';
 import moment from 'moment';
 
-import { Segment, Button, Modal, Icon } from 'semantic-ui-react';
+import firebase from '../../firebase';
 
 class DashboardOptions extends Component {
-  state = {
-    currentTag: this.props.currentTag,
-    monitoredTagsRef: firebase.database().ref('monitoredTags'),
-    deleteModal: false,
-    resetModal: false,
-    resetingTag: false
-  };
+  constructor(props) {
+    super(props);
+
+    this.state = {
+      currentTag: this.props.currentTag,
+      monitoredTagsRef: firebase.database().ref('monitoredTags'),
+      deleteModal: false,
+      resetModal: false,
+      resetingTag: false
+    };
+  }
 
   openDeleteModal = () => this.setState({ deleteModal: true });
 

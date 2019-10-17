@@ -1,23 +1,27 @@
 import React, { Component } from 'react';
+import { Menu, Icon, Form, Button, Input, Modal } from 'semantic-ui-react';
 import moment from 'moment';
 
 import firebase from '../../firebase';
-import { setSelectedTag, clearTag } from '../../actions';
 
 import { connect } from 'react-redux';
-import { Menu, Icon, Form, Button, Input, Modal } from 'semantic-ui-react';
+import { setSelectedTag, clearTag } from '../../actions';
 
 class MonitoredTags extends Component {
-  state = {
-    user: this.props.currentUser,
-    monitoredTags: [],
-    tagName: '',
-    tagDuration: '',
-    tagLoaded: true,
-    monitoredTagsRef: firebase.database().ref('monitoredTags'),
-    modal: false,
-    activeTag: ''
-  };
+  constructor(props) {
+    super(props);
+
+    this.state = {
+      user: this.props.currentUser,
+      monitoredTags: [],
+      tagName: '',
+      tagDuration: '',
+      tagLoaded: true,
+      monitoredTagsRef: firebase.database().ref('monitoredTags'),
+      modal: false,
+      activeTag: ''
+    };
+  }
 
   componentWillMount() {
     this.initialTagLoad();
